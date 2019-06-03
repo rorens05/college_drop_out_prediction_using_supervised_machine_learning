@@ -1,0 +1,82 @@
+library(shiny)
+
+ui <- fluidPage(
+  
+  
+  tags$head(
+    tags$style(HTML("
+      @import url('//fonts.googleapis.com/css?family=Lobster|Cabin:400,700');
+      
+      h1 {
+        font-family: 'Lobster', cursive;
+        font-weight: 500;
+        line-height: 1.1;
+        color: #48ca3b;
+      }
+      
+      h4 {
+        width: 100%;
+        border: 1px solid #cecece;
+        display: inline-block;
+        height: 40px;
+        padding: 10px;
+        text-align: center;
+        border-radius: 5px;
+      }
+
+    "))
+  ),
+  
+  titlePanel( 
+    h2("College Dropout Prediction", align = "center")
+  ),
+  titlePanel( 
+    h3("Using Supervised Machine Learning", align = "center")
+  ),
+  fluidRow(
+    column(3
+    ),
+    column(4, offset = 1,br(),
+           
+           numericInput(inputId = "gw_average",
+                        label = "General Weighted average",
+                        value = 0, width = "100%"),
+           
+           numericInput(inputId = "no_dropped_subject",
+                        label = "Number of dropped Subject",
+                        value = 0, width = "100%"),
+           
+           selectInput(inputId = "location",
+                       label = "Choose Location:",
+                       choices = c("Dagupan", "Lingeyen", "Binmaley", "Calasiao"), width = "100%"),
+           
+           selectInput(inputId = "gender",
+                       label = "Choose Gender:",
+                       choices = c("Male", "Female"), width = "100%"),
+           
+           submitButton(text = "Predict", icon = NULL, width = "100%"),
+           h4(tableOutput("view"))
+    ),
+    column(4
+    )
+  )
+)
+
+server <- function(input, output) {
+  output$view <- renderText({
+    
+    if(input$gw_average != 0){
+      # logic here 
+       # paste(toString(input$gw_average), toString(input$no_dropped_subject),toString(input$location),toString(input$gender))
+      
+      
+      
+      #print output here
+      "Output: Drop"
+    }
+    
+  })
+}
+
+shinyApp(ui = ui, server = server)
+
